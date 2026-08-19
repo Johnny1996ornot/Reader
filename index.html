@@ -3,152 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI Voice Reader Generator</title>
+  <title>Natural Male Voice Reader</title>
   <style>
-    :root {
-      --primary: #2563eb;
-      --primary-hover: #1d4ed8;
-      --bg: #f8fafc;
-      --card: #ffffff;
-      --text: #0f172a;
-      --border: #e2e8f0;
-    }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background-color: var(--bg);
-      color: var(--text);
-      max-width: 680px;
-      margin: 3rem auto;
-      padding: 0 1.5rem;
-      line-height: 1.6;
-    }
-
-    .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 2rem;
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
-      margin-top: 1.5rem;
-    }
-
-    h2 {
-      margin-top: 0;
-      color: var(--text);
-      font-size: 1.5rem;
-    }
-
-    .step {
-      margin-bottom: 1.5rem;
-    }
-
-    .step-title {
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .btn-container {
-      margin: 1.25rem 0;
-      display: flex;
-      justify-content: center;
-    }
-
-    .bookmarklet-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background-color: var(--primary);
-      color: white;
-      font-weight: 600;
-      padding: 12px 24px;
-      border-radius: 9999px;
-      text-decoration: none;
-      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
-      cursor: grab;
-      transition: background-color 0.2s, transform 0.1s;
-    }
-
-    .bookmarklet-btn:hover {
-      background-color: var(--primary-hover);
-    }
-
-    .bookmarklet-btn:active {
-      cursor: grabbing;
-      transform: scale(0.98);
-    }
-
-    .code-box {
-      background-color: #0f172a;
-      color: #f8fafc;
-      padding: 1rem;
-      border-radius: 8px;
-      font-family: monospace;
-      font-size: 0.85rem;
-      word-break: break-all;
-      max-height: 100px;
-      overflow-y: auto;
-      margin-top: 0.5rem;
-    }
-
-    .copy-btn {
-      background: var(--border);
-      border: none;
-      padding: 6px 12px;
-      border-radius: 6px;
-      font-size: 0.85rem;
-      cursor: pointer;
-      font-weight: 500;
-      margin-top: 0.5rem;
-    }
-
-    .copy-btn:hover {
-      background: #cbd5e1;
-    }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f8fafc; color: #0f172a; max-width: 650px; margin: 3rem auto; padding: 0 1rem; line-height: 1.6; }
+    .card { background: #fff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 2rem; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05); }
+    .btn { display: inline-block; background: #2563eb; color: #fff; font-weight: bold; padding: 12px 24px; border-radius: 30px; text-decoration: none; margin: 1rem 0; cursor: grab; }
+    textarea { width: 100%; height: 120px; font-family: monospace; font-size: 12px; padding: 10px; border-radius: 8px; border: 1px solid #cbd5e1; box-sizing: border-box; }
   </style>
 </head>
 <body>
 
-  <h2>AI Floating Reader</h2>
-  <p>Inject a natural-sounding, lag-free floating AI voice player directly onto any website or article you are reading.</p>
+  <h2>Natural Male Voice Reader</h2>
 
   <div class="card">
-    <div class="step">
-      <div class="step-title">Desktop Setup (Chrome, Edge, Safari)</div>
-      <p style="margin:0; font-size: 0.95rem; color: #475569;">Drag the blue button below onto your browser's <strong>Bookmarks Bar</strong>:</p>
-      
-      <div class="btn-container">
-        <a id="bmLink" class="bookmarklet-btn" href="#">🎙️ Read with AI Voice</a>
-      </div>
+    <p><strong>Option A (Desktop):</strong> Drag the button below to your Bookmarks Bar (`Ctrl+Shift+B`):</p>
+    <div style="text-align: center;">
+      <a class="btn" href="javascript:(function(){if(document.getElementById('ai-reader-widget')){return;}var el=Array.from(document.querySelectorAll('p,h1,h2,h3,article')).filter(e=>e.innerText.trim().length>25);if(!el.length){alert('No readable text found on this page.');return;}var i=0,p=false,synth=window.speechSynthesis;synth.cancel();var d=document.createElement('div');d.id='ai-reader-widget';d.style.cssText='position:fixed;bottom:24px;right:24px;z-index:999999;background:#0f172a;color:#fff;padding:12px 18px;border-radius:16px;box-shadow:0 20px 25px -5px rgba(0,0,0,0.4);font-family:sans-serif;display:flex;align-items:center;gap:12px;width:320px;box-sizing:border-box;border:1px solid #334155;';d.innerHTML='<div style=&quot;flex:1;overflow:hidden;&quot;><div id=&quot;air-status&quot; style=&quot;font-size:12px;color:#94a3b8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;&quot;>Male AI Voice Ready</div></div><button id=&quot;air-play&quot; style=&quot;background:#2563eb;color:#fff;border:none;padding:8px 16px;border-radius:20px;cursor:pointer;font-weight:bold;font-size:13px;&quot;>Play</button><button id=&quot;air-close&quot; style=&quot;background:#ef4444;color:#fff;border:none;padding:8px 10px;border-radius:50%;cursor:pointer;font-size:12px;&quot;>✕</button>';document.body.appendChild(d);var st=document.getElementById('air-status'),pl=document.getElementById('air-play'),cl=document.getElementById('air-close');function sn(){if(i>=el.length||!p){stop();st.innerText='Finished reading.';return;}el.forEach(e=>e.style.backgroundColor='');var c=el[i];c.style.backgroundColor='#2563eb33';c.scrollIntoView({behavior:'smooth',block:'center'});st.innerText='Reading paragraph '+(i+1)+'/'+el.length;synth.cancel();var u=new SpeechSynthesisUtterance(c.innerText);u.rate=0.95;u.pitch=0.9;var v=synth.getVoices();var male=v.find(x=>x.lang.startsWith('en')&&(x.name.includes('Male')||x.name.includes('David')||x.name.includes('George')||x.name.includes('Natural')||x.name.includes('Google US English')));if(male)u.voice=male;u.onend=function(){if(p){i++;sn();}};u.onerror=function(){if(p){i++;sn();}};synth.speak(u);}function stop(){synth.cancel();p=false;pl.innerText='Play';el.forEach(e=>e.style.backgroundColor='');}pl.onclick=function(){if(p){synth.pause();p=false;pl.innerText='Resume';}else if(synth.paused){synth.resume();p=true;pl.innerText='Pause';}else{p=true;pl.innerText='Pause';sn();}};cl.onclick=function(){stop();d.remove();};window.speechSynthesis.onvoiceschanged=function(){synth.getVoices();};})();">🎙️ Read with Male Voice</a>
     </div>
 
-    <hr style="border: 0; border-top: 1px solid var(--border); margin: 1.5rem 0;">
+    <hr style="margin: 1.5rem 0; border: 0; border-top: 1px solid #e2e8f0;">
 
-    <div class="step">
-      <div class="step-title">Mobile Setup (iOS / Android)</div>
-      <p style="margin:0; font-size: 0.95rem; color: #475569;">Bookmark this page on your phone, then copy the script below and replace the URL in your saved bookmark:</p>
-      
-      <button class="copy-btn" onclick="copyCode()">Copy Code to Clipboard</button>
-      <div class="code-box" id="codeText"></div>
-    </div>
+    <p><strong>Option B (Mobile & Laptop Manual Setup):</strong> Copy the code below and paste it into the URL field of a saved bookmark:</p>
+    <textarea readonly onclick="this.select()">javascript:(function(){if(document.getElementById('ai-reader-widget')){return;}var el=Array.from(document.querySelectorAll('p,h1,h2,h3,article')).filter(e=>e.innerText.trim().length>25);if(!el.length){alert('No readable text found on this page.');return;}var i=0,p=false,synth=window.speechSynthesis;synth.cancel();var d=document.createElement('div');d.id='ai-reader-widget';d.style.cssText='position:fixed;bottom:24px;right:24px;z-index:999999;background:#0f172a;color:#fff;padding:12px 18px;border-radius:16px;box-shadow:0 20px 25px -5px rgba(0,0,0,0.4);font-family:sans-serif;display:flex;align-items:center;gap:12px;width:320px;box-sizing:border-box;border:1px solid #334155;';d.innerHTML='<div style="flex:1;overflow:hidden;"><div id="air-status" style="font-size:12px;color:#94a3b8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Male AI Voice Ready</div></div><button id="air-play" style="background:#2563eb;color:#fff;border:none;padding:8px 16px;border-radius:20px;cursor:pointer;font-weight:bold;font-size:13px;">Play</button><button id="air-close" style="background:#ef4444;color:#fff;border:none;padding:8px 10px;border-radius:50%;cursor:pointer;font-size:12px;">✕</button>';document.body.appendChild(d);var st=document.getElementById('air-status'),pl=document.getElementById('air-play'),cl=document.getElementById('air-close');function sn(){if(i>=el.length||!p){stop();st.innerText='Finished reading.';return;}el.forEach(e=>e.style.backgroundColor='');var c=el[i];c.style.backgroundColor='#2563eb33';c.scrollIntoView({behavior:'smooth',block:'center'});st.innerText='Reading paragraph '+(i+1)+'/'+el.length;synth.cancel();var u=new SpeechSynthesisUtterance(c.innerText);u.rate=0.95;u.pitch=0.9;var v=synth.getVoices();var male=v.find(x=>x.lang.startsWith('en')&&(x.name.includes('Male')||x.name.includes('David')||x.name.includes('George')||x.name.includes('Natural')||x.name.includes('Google US English')));if(male)u.voice=male;u.onend=function(){if(p){i++;sn();}};u.onerror=function(){if(p){i++;sn();}};synth.speak(u);}function stop(){synth.cancel();p=false;pl.innerText='Play';el.forEach(e=>e.style.backgroundColor='');}pl.onclick=function(){if(p){synth.pause();p=false;pl.innerText='Resume';}else if(synth.paused){synth.resume();p=true;pl.innerText='Pause';}else{p=true;pl.innerText='Pause';sn();}};cl.onclick=function(){stop();d.remove();};window.speechSynthesis.onvoiceschanged=function(){synth.getVoices();};})();</textarea>
   </div>
-
-  <script>
-    // Embedded bookmarklet script using Puter.js for high-quality neural voice output
-    const bookmarkletScript = `javascript:(function(){if(document.getElementById('ai-reader-widget')){return;}var script=document.createElement('script');script.src='https://js.puter.com/v2/';script.onload=function(){var elements=Array.from(document.querySelectorAll('p, h1, h2, h3, article')).filter(el=>el.innerText.trim().length>25);if(!elements.length){alert('No readable text found on this page.');return;}var currentIndex=0;var isPlaying=false;var currentAudio=null;var div=document.createElement('div');div.id='ai-reader-widget';div.style.cssText='position:fixed;bottom:24px;right:24px;z-index:999999;background:#0f172a;color:#fff;padding:12px 18px;border-radius:16px;box-shadow:0 20px 25px -5px rgba(0,0,0,0.4);font-family:sans-serif;display:flex;align-items:center;gap:12px;width:320px;box-sizing:border-box;border:1px solid #334155;';div.innerHTML='<div style=\"flex:1;overflow:hidden;\"><div id=\"air-status\" style=\"font-size:12px;color:#94a3b8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;\">AI Voice Ready</div></div><button id=\"air-play\" style=\"background:#2563eb;color:#fff;border:none;padding:8px 16px;border-radius:20px;cursor:pointer;font-weight:bold;font-size:13px;\">Play</button><button id=\"air-close\" style=\"background:#ef4444;color:#fff;border:none;padding:8px 10px;border-radius:50%;cursor:pointer;font-size:12px;\">✕</button>';document.body.appendChild(div);var status=document.getElementById('air-status');var playBtn=document.getElementById('air-play');var closeBtn=document.getElementById('air-close');async function speakNext(){if(currentIndex>=elements.length||!isPlaying){stop();status.innerText='Finished reading.';return;}elements.forEach(el=>el.style.backgroundColor='');var currentEl=elements[currentIndex];currentEl.style.backgroundColor='#2563eb33';currentEl.scrollIntoView({behavior:'smooth',block:'center'});status.innerText='Reading paragraph '+(currentIndex+1)+'/'+elements.length;try{var text=currentEl.innerText;currentAudio=await puter.ai.txt2speech(text);if(!isPlaying)return;currentAudio.play();currentAudio.onended=function(){currentIndex++;if(isPlaying)speakNext();};currentAudio.onerror=function(){currentIndex++;if(isPlaying)speakNext();};}catch(e){currentIndex++;if(isPlaying)speakNext();}}function stop(){isPlaying=false;if(currentAudio){currentAudio.pause();currentAudio=null;}playBtn.innerText='Play';elements.forEach(el=>el.style.backgroundColor='');}playBtn.onclick=function(){if(isPlaying){stop();playBtn.innerText='Play';}else{isPlaying=true;playBtn.innerText='Pause';speakNext();}};closeBtn.onclick=function(){stop();div.remove();};};document.head.appendChild(script);})();`;
-
-    // Inject code cleanly into link and text box
-    document.getElementById('bmLink').href = bookmarkletScript;
-    document.getElementById('codeText').innerText = bookmarkletScript;
-
-    function copyCode() {
-      navigator.clipboard.writeText(bookmarkletScript);
-      alert('Bookmarklet code copied to clipboard!');
-    }
-  </script>
 
 </body>
 </html>
