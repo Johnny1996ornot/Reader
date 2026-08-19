@@ -3,396 +3,55 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Floating AI Audio Reader</title>
-  <!-- PDF parsing library -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <title>Floating Reader Bookmarklet Generator</title>
   <style>
-    :root {
-      --primary: #0066cc;
-      --bg: #f4f6f9;
-      --card-bg: #ffffff;
-      --text: #222222;
-    }
-
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      margin: 0;
-      padding: 1.5rem 1rem 120px 1rem; /* bottom padding so floating player doesn't cover content */
-      max-width: 650px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    h2 {
-      text-align: center;
-      margin-bottom: 1.5rem;
-    }
-
-    .card {
-      background: var(--card-bg);
-      padding: 1.25rem;
-      border-radius: 14px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-      margin-bottom: 1rem;
-    }
-
-    label {
-      font-weight: 600;
-      display: block;
-      margin-bottom: 8px;
-    }
-
-    input[type="text"], input[type="file"] {
-      width: 100%;
-      padding: 12px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      box-sizing: border-box;
-      font-size: 15px;
-    }
-
-    button {
-      background: var(--primary);
-      color: white;
-      font-weight: 600;
-      border: none;
-      padding: 12px 18px;
-      border-radius: 8px;
-      cursor: pointer;
-      width: 100%;
-      margin-top: 8px;
-      font-size: 15px;
-      transition: opacity 0.2s;
-    }
-
-    button:disabled {
-      background: #aaa;
-      cursor: not-allowed;
-    }
-
-    /* Status & Loading Spinner */
-    .status-box {
-      display: none;
-      align-items: center;
-      gap: 10px;
-      background: #eef5ff;
-      border: 1px solid #b6d4fe;
-      padding: 12px;
-      border-radius: 8px;
-      margin-top: 10px;
-      font-size: 14px;
-      color: #084298;
-    }
-
-    .spinner {
-      width: 18px;
-      height: 18px;
-      border: 3px solid #b6d4fe;
-      border-top: 3px solid var(--primary);
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    /* Floating Widget Player */
-    .floating-player {
-      position: fixed;
-      bottom: 16px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: calc(100% - 32px);
       max-width: 600px;
-      background: #1e1e24;
-      color: #ffffff;
-      padding: 12px 16px;
-      border-radius: 16px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      z-index: 9999;
+      margin: 3rem auto;
+      padding: 0 1rem;
+      color: #222;
+      line-height: 1.6;
     }
-
-    .player-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+    .card {
+      background: #f4f6f9;
+      border: 2px dashed #0066cc;
+      padding: 2rem;
+      border-radius: 12px;
+      text-align: center;
+      margin-top: 1.5rem;
     }
-
-    .now-playing {
-      font-size: 13px;
-      color: #aaa;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-width: 70%;
+    .bookmark-btn {
+      display: inline-block;
+      background: #0066cc;
+      color: white;
+      font-weight: bold;
+      padding: 14px 24px;
+      border-radius: 30px;
+      text-decoration: none;
+      box-shadow: 0 4px 12px rgba(0, 102, 204, 0.3);
+      cursor: move;
     }
-
-    .player-controls {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-    }
-
-    .player-btn {
-      margin: 0;
-      padding: 8px 14px;
+    code {
+      background: #eee;
+      padding: 2px 6px;
+      border-radius: 4px;
       font-size: 14px;
-      border-radius: 20px;
-      flex: 1;
-    }
-
-    .btn-stop {
-      background: #e63946;
-    }
-
-    .toggle-drawer {
-      background: transparent;
-      border: 1px solid #555;
-      color: #ccc;
-      width: auto;
-      padding: 4px 8px;
-      font-size: 12px;
-      margin: 0;
-    }
-
-    /* Collapsible Text Viewer */
-    .text-drawer {
-      display: none;
-      max-height: 150px;
-      overflow-y: auto;
-      background: #2a2a32;
-      padding: 10px;
-      border-radius: 8px;
-      font-size: 13px;
-      line-height: 1.4;
-      color: #ddd;
     }
   </style>
 </head>
 <body>
 
-  <h2>Web & PDF Reader</h2>
+  <h2>Floating Web Reader</h2>
+  <p>This tool injects a lag-free floating audio reader directly onto any website you are currently reading.</p>
 
-  <!-- Web Link Input -->
   <div class="card">
-    <label for="urlInput">Paste Website Link</label>
-    <input type="text" id="urlInput" placeholder="https://example.com/article">
-    <button id="webBtn" onclick="fetchWebText()">Load Article</button>
+    <p><strong>Desktop Setup:</strong> Drag the button below to your Browser Bookmarks Bar:</p>
+    <br>
+    <a class="bookmark-btn" href="javascript:(function(){if(document.getElementById('floating-reader-widget')){return;}var elements=Array.from(document.querySelectorAll('p, h1, h2, h3, article')).filter(el=>el.innerText.trim().length>20);if(!elements.length){alert('No readable text found on this page.');return;}var currentIndex=0;var isPlaying=false;var synth=window.speechSynthesis;var div=document.createElement('div');div.id='floating-reader-widget';div.style.cssText='position:fixed;bottom:20px;right:20px;z-index:999999;background:#1e1e24;color:#fff;padding:12px 16px;border-radius:16px;box-shadow:0 10px 25px rgba(0,0,0,0.4);font-family:sans-serif;display:flex;align-items:center;gap:10px;width:300px;';div.innerHTML='<div style=\"flex:1;overflow:hidden;\"><div id=\"fr-status\" style=\"font-size:12px;color:#aaa;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;\">Ready</div></div><button id=\"fr-play\" style=\"background:#0066cc;color:#fff;border:none;padding:8px 14px;border-radius:20px;cursor:pointer;font-weight:bold;\">Play</button><button id=\"fr-close\" style=\"background:#e63946;color:#fff;border:none;padding:8px 10px;border-radius:50%;cursor:pointer;\">✕</button>';document.body.appendChild(div);var status=document.getElementById('fr-status');var playBtn=document.getElementById('fr-play');var closeBtn=document.getElementById('fr-close');function speakNext(){if(currentIndex>=elements.length||!isPlaying){stop();status.innerText='Finished reading.';return;}elements.forEach(el=>el.style.backgroundColor='');var currentEl=elements[currentIndex];currentEl.style.backgroundColor='#ffeb3b44';currentEl.scrollIntoView({behavior:'smooth',block:'center'});status.innerText='Reading paragraph '+(currentIndex+1)+'/'+elements.length;var text=currentEl.innerText;var utt=new SpeechSynthesisUtterance(text);var voices=synth.getVoices();var bestVoice=voices.find(v=>v.lang.startsWith('en')&&(v.name.includes('Natural')||v.name.includes('Google')||v.name.includes('Enhanced')));if(bestVoice)utt.voice=bestVoice;utt.onend=function(){currentIndex++;if(isPlaying)speakNext();};utt.onerror=function(){currentIndex++;if(isPlaying)speakNext();};synth.speak(utt);}function stop(){synth.cancel();isPlaying=false;playBtn.innerText='Play';elements.forEach(el=>el.style.backgroundColor='');}playBtn.onclick=function(){if(isPlaying){synth.pause();isPlaying=false;playBtn.innerText='Resume';}else if(synth.paused){synth.resume();isPlaying=true;playBtn.innerText='Pause';}else{isPlaying=true;playBtn.innerText='Pause';speakNext();}};closeBtn.onclick=function(){stop();div.remove();};window.speechSynthesis.onvoiceschanged=function(){synth.getVoices();};})();">🔊 Read Webpage</a>
+    <br><br>
+    <p><strong>Mobile Setup:</strong> Bookmark this page on your phone, then edit the bookmark's URL address and paste the bookmarklet code directly into it.</p>
   </div>
 
-  <!-- PDF Input -->
-  <div class="card">
-    <label for="pdfInput">Upload PDF Document</label>
-    <input type="file" id="pdfInput" accept="application/pdf" onchange="parsePDF(event)">
-  </div>
-
-  <!-- Visual Loading Status Indicator -->
-  <div id="statusBox" class="status-box">
-    <div class="spinner"></div>
-    <span id="statusMessage">Processing content...</span>
-  </div>
-
-  <!-- Floating Audio Player Widget -->
-  <div class="floating-player">
-    <div class="player-header">
-      <span id="nowPlayingText" class="now-playing">Ready to read</span>
-      <button class="toggle-drawer" onclick="toggleDrawer()">Show Text</button>
-    </div>
-
-    <div id="textDrawer" class="text-drawer">
-      <em>No content loaded yet.</em>
-    </div>
-
-    <div class="player-controls">
-      <button id="playBtn" class="player-btn" onclick="togglePlay()" disabled>Play</button>
-      <button class="player-btn btn-stop" onclick="stopAudio()">Stop</button>
-    </div>
-  </div>
-
-  <!-- Silent background loop audio for mobile screen-off playback support -->
-  <audio id="silentAudio" loop src="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAA="></audio>
-
-  <script>
-    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-
-    let loadedText = "";
-    let textChunks = [];
-    let currentChunkIndex = 0;
-    let isPlaying = false;
-    const synth = window.speechSynthesis;
-    let currentUtterance = null;
-
-    // UI Helpers
-    function showStatus(msg) {
-      document.getElementById('statusBox').style.display = 'flex';
-      document.getElementById('statusMessage').innerText = msg;
-    }
-
-    function hideStatus() {
-      document.getElementById('statusBox').style.display = 'none';
-    }
-
-    function toggleDrawer() {
-      const drawer = document.getElementById('textDrawer');
-      drawer.style.display = drawer.style.display === 'block' ? 'none' : 'block';
-    }
-
-    // 1. Fetch Web Text cleanly
-    async function fetchWebText() {
-      const url = document.getElementById('urlInput').value.trim();
-      if (!url) return alert('Please enter a valid web link.');
-
-      stopAudio();
-      showStatus("Fetching web article content...");
-      document.getElementById('webBtn').disabled = true;
-
-      try {
-        const response = await fetch(`https://r.jina.ai/${url}`);
-        if (!response.ok) throw new Error("Network error");
-        
-        const rawText = await response.text();
-        processExtractedText(rawText);
-      } catch (err) {
-        alert('Could not fetch text from this link. Make sure the URL is correct.');
-      } finally {
-        hideStatus();
-        document.getElementById('webBtn').disabled = false;
-      }
-    }
-
-    // 2. Parse PDF page-by-page with progress status
-    async function parsePDF(event) {
-      const file = event.target.files[0];
-      if (!file) return;
-
-      stopAudio();
-      showStatus("Reading PDF file...");
-
-      try {
-        const arrayBuffer = await file.arrayBuffer();
-        const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
-        
-        let fullText = '';
-        for (let i = 1; i <= pdf.numPages; i++) {
-          showStatus(`Parsing PDF: Page ${i} of ${pdf.numPages}...`);
-          const page = await pdf.getPage(i);
-          const textContent = await page.getTextContent();
-          const pageText = textContent.items.map(item => item.str).join(' ');
-          fullText += pageText + ' ';
-        }
-        processExtractedText(fullText);
-      } catch (err) {
-        alert('Error parsing this PDF file.');
-      } finally {
-        hideStatus();
-      }
-    }
-
-    // Process raw text into manageable chunks to prevent main thread memory freeze
-    function processExtractedText(text) {
-      loadedText = text.replace(/\s+/g, ' ').trim();
-      if (!loadedText) {
-        alert('No readable text found.');
-        return;
-      }
-
-      // Split text into short sentence chunks (Max ~200 characters each)
-      textChunks = loadedText.match(/[^.!?]+[.!?]+/g) || [loadedText];
-      currentChunkIndex = 0;
-
-      document.getElementById('textDrawer').innerText = loadedText;
-      document.getElementById('nowPlayingText').innerText = `Loaded ${textChunks.length} text segments. Ready!`;
-      document.getElementById('playBtn').disabled = false;
-    }
-
-    // 3. Sequential Non-Freezing Playback Engine
-    function togglePlay() {
-      if (isPlaying) {
-        synth.pause();
-        isPlaying = false;
-        document.getElementById('playBtn').innerText = "Resume";
-        return;
-      }
-
-      if (synth.paused) {
-        synth.resume();
-        isPlaying = true;
-        document.getElementById('playBtn').innerText = "Pause";
-        return;
-      }
-
-      if (textChunks.length === 0) return;
-
-      // Enable screen-off playback loop
-      const silentAudio = document.getElementById('silentAudio');
-      silentAudio.play().catch(() => {});
-
-      isPlaying = true;
-      document.getElementById('playBtn').innerText = "Pause";
-      
-      speakCurrentChunk();
-
-      // Configure native OS lock-screen media widget
-      if ('mediaSession' in navigator) {
-        navigator.mediaSession.metadata = new MediaMetadata({
-          title: "Audio Web/PDF Reader",
-          artist: "Background Reader App"
-        });
-        navigator.mediaSession.setActionHandler('play', () => togglePlay());
-        navigator.mediaSession.setActionHandler('pause', () => togglePlay());
-      }
-    }
-
-    function speakCurrentChunk() {
-      if (currentChunkIndex >= textChunks.length || !isPlaying) {
-        stopAudio();
-        document.getElementById('nowPlayingText').innerText = "Finished reading.";
-        return;
-      }
-
-      const chunkText = textChunks[currentChunkIndex].trim();
-      document.getElementById('nowPlayingText').innerText = `Segment ${currentChunkIndex + 1}/${textChunks.length}: "${chunkText.substring(0, 45)}..."`;
-
-      currentUtterance = new SpeechSynthesisUtterance(chunkText);
-
-      // Select highest quality available voice
-      const voices = synth.getVoices();
-      const bestVoice = voices.find(v => v.lang.startsWith('en') && (v.name.includes('Natural') || v.name.includes('Google') || v.name.includes('Enhanced')));
-      if (bestVoice) currentUtterance.voice = bestVoice;
-
-      // Proceed seamlessly to the next chunk without crashing memory
-      currentUtterance.onend = () => {
-        currentChunkIndex++;
-        if (isPlaying) speakCurrentChunk();
-      };
-
-      currentUtterance.onerror = () => {
-        currentChunkIndex++;
-        if (isPlaying) speakCurrentChunk();
-      };
-
-      synth.speak(currentUtterance);
-    }
-
-    function stopAudio() {
-      synth.cancel();
-      document.getElementById('silentAudio').pause();
-      document.getElementById('playBtn').innerText = "Play";
-      isPlaying = false;
-      currentChunkIndex = 0;
-      if (textChunks.length > 0) {
-        document.getElementById('nowPlayingText').innerText = "Stopped. Click Play to start from beginning.";
-      }
-    }
-
-    window.speechSynthesis.onvoiceschanged = () => synth.getVoices();
-  </script>
 </body>
 </html>
